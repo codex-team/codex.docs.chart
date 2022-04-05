@@ -25,7 +25,7 @@ configuration:
     "secret": "iamasecretstring"
 
 image:
-  repository: ghcr.io/codex-team/codex-docs
+  repository: ghcr.io/codex-team/codex.docs
   pullPolicy: Always
   tag: "latest"
 
