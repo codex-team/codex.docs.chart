@@ -27,15 +27,10 @@ configuration:
 image:
   repository: ghcr.io/codex-team/codex-docs
   pullPolicy: Always
-  tag: "stage"
+  tag: "latest"
 
 imagePullSecrets: []
-fullnameOverride: "codex-docs"
-
-serviceAccount:
-  create: false
-  annotations: {}
-  name: ""
+fullnameOverride: ""
 
 podAnnotations: {}
 
@@ -48,14 +43,19 @@ service:
   port: 3000
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
   annotations: {}
   hosts:
-    - host: chart-example.local
+    - host: codex-docs.local
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
+          backend:
+            service:
+              name: web
+              port:
+                number: 3000
   tls: []
 
 resources: {}
