@@ -27,7 +27,7 @@ configuration:
 image:
   repository: ghcr.io/codex-team/codex.docs
   pullPolicy: Always
-  tag: "latest"
+  tag: ""
 
 imagePullSecrets: []
 fullnameOverride: ""
