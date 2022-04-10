@@ -51,9 +51,9 @@ spec:
               mountPath: /usr/src/app/config/production.json
               subPath: "production.json"
             - name: {{ include "codexdocs.fullname" . }}-db
-              mountPath: "/mnt/db"
+              mountPath: {{ .Values.configuration.production.database }}
             - name: {{ include "codexdocs.fullname" . }}-uploads
-              mountPath: "/mnt/uploads"
+              mountPath:  {{ .Values.configuration.production.uploads }}
           ports:
             - name: http
               containerPort: 3000
