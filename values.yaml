@@ -19,13 +19,13 @@ configuration:
       serve:
   production:
     port: 3000
-    database: ".db"
+    database: "/mnt/db"
     rcFile: "./.codexdocsrc"
-    "uploads": "public/uploads"
+    "uploads": "/mnt/uploads"
     "secret": "iamasecretstring"
 
 image:
-  repository: ghcr.io/codex-team/codex-docs
+  repository: ghcr.io/codex-team/codex.docs
   pullPolicy: Always
   tag: "latest"
 
