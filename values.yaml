@@ -1,0 +1,73 @@
+replicaCount: 1
+
+configuration:
+  codexdocsrc:
+    title: "CodeX Docs"
+    description: "A block-styled editor with clean JSON output"
+    landingFrameSrc: "https://codex.so/editor?frame=1" 
+    menu:
+      - "Guides"
+      - "API"
+      - "Plugins"
+      - title: "Support Project"
+        uri: "/support"
+    misprintsChatId: 
+    startPage:
+    yandexMetrikaId:
+    carbon:
+      placement:
+      serve:
+  production:
+    port: 3000
+    database: "/mnt/db"
+    rcFile: "./.codexdocsrc"
+    "uploads": "/usr/src/app/public/uploads"
+    "secret": "iamasecretstring"
+
+image:
+  repository: ghcr.io/codex-team/codex.docs
+  pullPolicy: Always
+  tag: ""
+
+imagePullSecrets: []
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: codex-docs.local
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: web
+              port:
+                number: 3000
+  tls: []
+
+resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
