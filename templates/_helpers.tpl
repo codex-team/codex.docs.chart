@@ -60,3 +60,50 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the available value for certain key in an existing secret (if it exists),
+otherwise it generates a random value.
+*/}}
+{{- define "getValueFromSecret" }}
+{{- $len := (default 16 .Length) | int -}}
+{{- $obj := (lookup "v1" "Secret" .Namespace .Name).data -}}
+{{- if $obj }}
+{{- index $obj .Key | b64dec -}}
+{{- else -}}
+{{- randAlphaNum $len -}}
+{{- end -}}
+{{- end }}
+
+{{/*
+Return codex.docs password
+*/}}
+{{- define "codexdocs.password" -}}
+{{- if empty .Values.auth.password -}}
+{{- include "getValueFromSecret" (dict "Namespace" .Release.Namespace "Name" (include "codexdocs.fullname" .) "Length" 20 "Key" "docs-password")  -}}
+{{- else -}}
+{{- .Values.auth.password -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the password secret.
+*/}}
+{{- define "codexdocs.secretName" -}}
+{{- if .Values.auth.existingSecret -}}
+{{- printf "%s" .Values.auth.existingSecret -}}
+{{- else -}}
+{{- printf "%s" (include "codexdocs.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Get the password key to be retrieved from secret.
+*/}}
+{{- define "codexdocs.secretPasswordKey" -}}
+{{- if and .Values.auth.existingSecret .Values.auth.existingSecretPasswordKey -}}
+{{- printf "%s" .Values.auth.existingSecretPasswordKey -}}
+{{- else -}}
+{{- printf "docs-password" -}}
+{{- end -}}
+{{- end -}}
