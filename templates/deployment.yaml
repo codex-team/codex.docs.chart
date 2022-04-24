@@ -5,9 +5,12 @@ metadata:
   labels:
     {{- include "codexdocs.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+{{/*  {{- if not .Values.autoscaling.enabled }}*/}}
+{{/*  replicas: {{ .Values.replicaCount }}*/}}
+{{/*  {{- end }}*/}}
+  replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "codexdocs.selectorLabels" . | nindent 6 }}
