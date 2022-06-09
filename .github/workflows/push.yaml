@@ -1,0 +1,36 @@
+name: Lint and Release chart
+
+on: push
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: install helm
+        id: install
+        uses: azure/setup-helm@v1
+        with:
+          version: '3.9.0'
+
+      - name: lint chart
+        run: helm lint
+
+  deploy:
+     name: deploy
+     if: startsWith(github.ref, 'refs/tags/v')
+     needs: lint-test
+     runs-on: ubuntu-latest
+     steps:
+      - uses: craftech-io/helm-push-action@v1
+        with:
+         helm-chart-repo-name: codex
+         helm-chart-repo-url: https://charts.codex.so
+         chart-dir: .
+         repo-username: ${{ secrets.HELM_REPO_USERNAME }}
+         repo-password: ${{ secrets.HELM_REPO_PASSWORD }}
+
+
+
