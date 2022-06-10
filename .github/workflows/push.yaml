@@ -3,17 +3,11 @@ name: Lint and Release chart
 on: push
 
 jobs:
-  lint-test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: install helm
-        id: install
-        uses: azure/setup-helm@v1
-        with:
-          version: '3.9.0'
+        uses: actions/checkout@v3
 
       - name: lint chart
         run: helm lint
@@ -31,6 +25,3 @@ jobs:
          chart-dir: .
          repo-username: ${{ secrets.HELM_REPO_USERNAME }}
          repo-password: ${{ secrets.HELM_REPO_PASSWORD }}
-
-
-
