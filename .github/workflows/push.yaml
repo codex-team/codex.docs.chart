@@ -18,7 +18,7 @@ jobs:
      needs: lint
      runs-on: ubuntu-latest
      steps:
-      - uses: craftech-io/helm-push-action@v1
+      - uses: craftech-io/helm-push-action@v0.0.2
         with:
          helm-chart-repo-name: codex
          helm-chart-repo-url: https://charts.codex.so
