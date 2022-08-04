@@ -21,8 +21,9 @@ configuration:
     port: 3000
     database: "/mnt/db"
     rcFile: "./.codexdocsrc"
-    "uploads": "/usr/src/app/public/uploads"
-    "secret": "iamasecretstring"
+    uploads: "/usr/src/app/public/uploads"
+    secret: "iamasecretstring"
+    favicon: ""
 
 # Authentication parameters
 auth:
