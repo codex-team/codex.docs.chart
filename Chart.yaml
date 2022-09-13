@@ -3,4 +3,4 @@ name: codex-docs
 description: A Helm chart for CodeX Docs
 type: application
 version: "0.2.0"
-appVersion: "0.3.0"
+appVersion: "0.3.3"
