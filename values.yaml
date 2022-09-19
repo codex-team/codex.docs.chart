@@ -76,6 +76,15 @@ ingress:
 
 resources: {}
 
+volumes:
+  db:
+    storage: 1Gi
+    storageClassName: ""
+  uploads:
+    storage: 5Gi
+    storageClassName: ""
+
+
 nodeSelector: {}
 
 tolerations: []

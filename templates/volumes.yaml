@@ -5,11 +5,12 @@ metadata:
   labels:
     {{- include "codexdocs.labels" . | nindent 4 }}
 spec:
+  storageClassName: {{ .Values.volumes.db.storageClassName }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: {{ .Values.volumes.db.storage }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -18,8 +19,9 @@ metadata:
   labels:
     {{- include "codexdocs.labels" . | nindent 4 }}
 spec:
+  storageClassName: {{ .Values.volumes.uploads.storageClassName }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage:  5Gi
+      storage: {{ .Values.volumes.uploads.storage }}
