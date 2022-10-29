@@ -3,7 +3,5 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-config
 data:
-  codexdocsrc: |-
-    {{ .Values.configuration.codexdocsrc | toJson }}
-  production.json: |-
-    {{ .Values.configuration.production | toJson }}
+  docs-config.yaml: |-
+    {{- .Values.configuration | toYaml | nindent 4 }}

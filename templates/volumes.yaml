@@ -1,3 +1,4 @@
+{{ if eq .Values.configuration.database.driver "local" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -11,6 +12,9 @@ spec:
   resources:
     requests:
       storage: {{ .Values.volumes.db.storage }}
+{{end}}
+
+{{ if eq .Values.configuration.uploads.driver "local" }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -25,3 +29,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.volumes.uploads.storage }}
+{{end}}
