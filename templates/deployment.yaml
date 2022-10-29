@@ -2,6 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "codexdocs.fullname" . }}
+  annotations:
+    checksum/config: {{ .Values.configuration | toString | sha256sum }}
+    {{- if .Values.annotations }}
+    {{- toYaml .Values.annotations | nindent 4 }}
+    {{- end }}
   labels:
     {{- include "codexdocs.labels" . | nindent 4 }}
 spec:
@@ -57,6 +62,9 @@ spec:
                 secretKeyRef:
                   name: {{ template "codexdocs.secretName" . }}
                   key: {{ template "codexdocs.secretPasswordKey" . }}
+{{- if .Values.env }}
+{{ toYaml .Values.env | indent 12 }}
+{{- end }}
           volumeMounts:
             - name: config
               mountPath: /usr/src/app/config/docs-config.yaml
@@ -67,7 +75,7 @@ spec:
             {{- end}}
             {{- if eq .Values.configuration.uploads.driver "local" }}
             - name: {{ include "codexdocs.fullname" . }}-uploads
-              mountPath:  {{ .Values.configuration.uploads.local.path }}
+              mountPath: {{ .Values.configuration.uploads.local.path }}
             {{- end}}
           ports:
             - name: http

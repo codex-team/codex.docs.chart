@@ -1,5 +1,7 @@
 replicaCount: 1
 
+annotations:
+
 configuration:
   port: 3000
   host: "0.0.0.0"
@@ -35,6 +37,13 @@ configuration:
     mongodb:
       uri: mongodb://localhost:27017/docs
 
+# Additional Environment variables
+env: {}
+# - name: APP_CONFIG_hawk_backendToken
+#   valueFrom:
+#     secretKeyRef:
+#       key: backend-token
+#       name: hawk-creds
 
 # Authentication parameters
 auth:
