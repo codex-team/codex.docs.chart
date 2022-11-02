@@ -26,7 +26,7 @@ jobs:
           username: ${{ github.actor }}
           access-token: ${{ secrets.GITHUB_TOKEN }}
           force: true
-#          chart-folder: .
+          chart-folder: ./
 #      - uses: craftech-io/helm-push-action@v0.0.2
 #        with:
 #         helm-chart-repo-name: codex
