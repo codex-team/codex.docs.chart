@@ -23,11 +23,7 @@ configuration:
     carbon:
       serve: ""
       placement: ""
-    menu:
-      - "Guides"
-      - title: "CodeX"
-        uri: "https://codex.so"
-
+    menu: []
   auth:
     password: "will be generated automatically"
     secret: supersecret
