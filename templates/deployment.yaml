@@ -67,7 +67,7 @@ spec:
 {{- end }}
           volumeMounts:
             - name: config
-              mountPath: /usr/src/app/config/docs-config.yaml
+              mountPath: /usr/src/app/docs-config.yaml
               subPath: "docs-config.yaml"
             {{- if eq .Values.configuration.database.driver "local" }}
             - name: {{ include "codexdocs.fullname" . }}-db
