@@ -18,6 +18,8 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Helm Push
         uses: bsord/helm-push@v4.1.0
         with:
@@ -26,7 +28,7 @@ jobs:
           username: ${{ github.actor }}
           access-token: ${{ secrets.GITHUB_TOKEN }}
           force: true
-          chart-folder: ./
+          chart-folder: .
 #      - uses: craftech-io/helm-push-action@v0.0.2
 #        with:
 #         helm-chart-repo-name: codex
