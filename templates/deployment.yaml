@@ -2,11 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "codexdocs.fullname" . }}
+  {{- with .Values.annotations }}
   annotations:
-    checksum/config: {{ .Values.configuration | toString | sha256sum }}
-    {{- if .Values.annotations }}
-    {{- toYaml .Values.annotations | nindent 4 }}
-    {{- end }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   labels:
     {{- include "codexdocs.labels" . | nindent 4 }}
 spec:
@@ -22,8 +21,9 @@ spec:
       {{- include "codexdocs.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        checksum/config: {{ .Values.configuration | toString | sha256sum }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
