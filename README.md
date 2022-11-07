@@ -1,7 +1,15 @@
 # codex.docs.chart
 Helm chart for deploying CodeX Docs
 
-## Running
+## Installing
+
+In order to install this chart, run the following command:
+
+```bash
+helm upgrade codex-docs oci://ghcr.io/codex-team/codex.docs.chart/codex-docs --version <specify_latest_version_here> --install
+```
+
+## Running locally
 
 Execute the following commands from the repository root folder:
 ```
