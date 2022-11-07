@@ -29,10 +29,3 @@ jobs:
           access-token: ${{ secrets.GITHUB_TOKEN }}
           force: true
           chart-folder: .
-#      - uses: craftech-io/helm-push-action@v0.0.2
-#        with:
-#         helm-chart-repo-name: codex
-#         helm-chart-repo-url: https://charts.codex.so
-#         chart-dir: .
-#         repo-username: ${{ secrets.HELM_REPO_USERNAME }}
-#         repo-password: ${{ secrets.HELM_REPO_PASSWORD }}
