@@ -13,15 +13,19 @@ jobs:
         run: helm lint
 
   deploy:
-     name: deploy
-     if: startsWith(github.ref, 'refs/tags/v')
-     needs: lint
-     runs-on: ubuntu-latest
-     steps:
-      - uses: craftech-io/helm-push-action@v0.0.2
+    name: deploy
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Helm Push
+        uses: bsord/helm-push@v4.1.0
         with:
-         helm-chart-repo-name: codex
-         helm-chart-repo-url: https://charts.codex.so
-         chart-dir: .
-         repo-username: ${{ secrets.HELM_REPO_USERNAME }}
-         repo-password: ${{ secrets.HELM_REPO_PASSWORD }}
+          useOCIRegistry: true
+          registry-url: oci://ghcr.io/${{ github.repository }}
+          username: ${{ github.actor }}
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+          chart-folder: .

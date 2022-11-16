@@ -1,29 +1,45 @@
-#replicaCount: 1
+replicaCount: 1
+
+annotations:
 
 configuration:
-  codexdocsrc:
+  port: 3000
+  host: "0.0.0.0"
+  uploads:
+    driver: "s3"
+    s3:
+      bucket: "my-bucket"
+      region: "eu-central-1"
+      baseUrl: "http://docs-static.codex.so.s3-website.eu-central-1.amazonaws.com"
+      keyPrefix: "/"
+      accessKeyId: "my-access-key"
+      secretAccessKey: "my-secret-key"
+  frontend:
     title: "CodeX Docs"
     description: "A block-styled editor with clean JSON output"
-    landingFrameSrc: "https://codex.so/editor?frame=1" 
-    menu:
-      - "Guides"
-      - "API"
-      - "Plugins"
-      - title: "Support Project"
-        uri: "/support"
-    misprintsChatId: 
-    startPage:
-    yandexMetrikaId:
+    startPage: ""
+    misprintsChatId: "12344564"
+    yandexMetrikaId: ""
     carbon:
-      placement:
-      serve:
-  production:
-    port: 3000
-    database: "/mnt/db"
-    rcFile: "./.codexdocsrc"
-    uploads: "/usr/src/app/public/uploads"
-    secret: "iamasecretstring"
-    favicon: ""
+      serve: ""
+      placement: ""
+    menu: []
+  auth:
+    password: "will be generated automatically"
+    secret: supersecret
+
+  database:
+    driver: mongodb # you can change database driver here. 'mongodb' or 'local'
+    mongodb:
+      uri: mongodb://localhost:27017/docs
+
+# Additional Environment variables
+env: {}
+# - name: APP_CONFIG_hawk_backendToken
+#   valueFrom:
+#     secretKeyRef:
+#       key: backend-token
+#       name: hawk-creds
 
 # Authentication parameters
 auth:
@@ -42,7 +58,7 @@ auth:
 
 image:
   repository: ghcr.io/codex-team/codex.docs
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   tag: ""
 
 imagePullSecrets: []
