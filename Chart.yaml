@@ -2,5 +2,5 @@ apiVersion: v2
 name: codex-docs
 description: A Helm chart for CodeX Docs
 type: application
-version: "2.1.0"
-appVersion: "v2.1.0"
+version: "2.1.2"
+appVersion: "v2.1.2"
